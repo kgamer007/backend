@@ -30,7 +30,7 @@ relationshipRouter.get('/api/v1/attach', bearerAuthMiddleware, async (request, r
 
   const role = queryKeys.filter(k => k !== 'student')[0];
   if (!['mentor', 'coach', 'teacher', 'family'].includes(role)) {
-    return next(new HttpErrors(400, 'ATTACH ROUTER GET ERROR: missing valid role query parameter', { expose: false }));
+    return next(new HttpErrors(400, 'ATTACH ROUTER GET ERROR: missing valid rolen (adult) query parameter', { expose: false }));
   }
   // at this point query parameters and user's role are good.
   logger.log(logger.INFO, `ATTACH ROUTER GET: attaching student ${request.query.student} to ${role}=${request.query[role]}`);
@@ -50,8 +50,7 @@ relationshipRouter.get('/api/v1/attach', bearerAuthMiddleware, async (request, r
   }
 
   // update student support role with student's id
-  const dataProp = `${roleProfile.role}Data`;
-  const dataArray = roleProfile[dataProp].students;
+  const dataArray = roleProfile.students;
   if (!dataArray.map(id => id.toString()).includes(studentProfile._id.toString())) dataArray.push(request.query.student);
 
   // update student to reference support role's profile _id
@@ -125,10 +124,9 @@ relationshipRouter.get('/api/v1/detach', bearerAuthMiddleware, async (request, r
   }
 
   // remove student's id from support role profile
-  const dataProp = `${roleProfile.role}Data`;
-  const dataArray = roleProfile[dataProp].students;
+  const dataArray = roleProfile.students;
   const newDataArray = dataArray.map(id => id.toString()).filter(id => id !== request.query.student);
-  roleProfile[dataProp].students = newDataArray;
+  roleProfile.students = newDataArray;
 
   // now remove support role ID from student profile.
   let newSupportersArray;
