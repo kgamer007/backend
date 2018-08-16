@@ -109,7 +109,7 @@ googleOAuthRouter.get('/api/v1/oauth/google', async (request, response, next) =>
   const raToken = await profile.createTokenPromise(googleTokenResponse.body);
 
   // send raToken as cookie and in response json
-  const cookieOptions = { maxAge: 7 * 1000 * 60 * 60 * 24 };
+  const cookieOptions = { maxAge: 7 * 1000 * 60 * 60 * 24, secure: false };
   response.cookie('RaToken', raToken, cookieOptions);
   response.cookie('RaUser', Buffer.from(profile.role)
     .toString('base64'), cookieOptions);
