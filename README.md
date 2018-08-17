@@ -11,6 +11,23 @@ Relationships between models can be deduced from the mock JSON below, but in bri
 	- Profile[role=student] to Profile[role=coach], 1:Many
 	- Profile[role=student] to Profile[role=family], 1:Many
 
+## Router
+
+Google Oauth
+- Google Oauth connnects our MongoDB to our google response. Giving a user the ability to log into their account using a gmail email by accessing google API and recieving a token.
+
+Point Tracker
+- Point Tracker connects to our Bearer Auth token that allows us to create,retrieve our point tracker, make edits send and delete based off request.
+
+-Profile
+-Profile connects to our Bearer Auth token that allows us to createor retrieve a profile, make edits send and delete based off request.
+
+-Relationship
+Relationship connects our roles for each person in our profile.
+
+Synopsis
+-Synopsis checks our Google API to see if the requested folder is present and if not creates it
+
 ## Routes
 
 ### POST

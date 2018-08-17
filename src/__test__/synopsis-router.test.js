@@ -49,4 +49,7 @@ describe('SYNOPSIS ROUTER TESTS', () => {
       expect(true).toBeTruthy();
     });
   });
+  // describe('GET 200 of PDF file', async () => {
+
+  // });
 });
